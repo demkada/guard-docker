@@ -14,6 +14,7 @@ services:
     volumes:
       - ./dc1_rack1_node1_data:/var/lib/cassandra
     environment:
+      - "constraint:node==rack1"
       - CASSANDRA_CLUSTER_NAME=guard_cluster
       - CASSANDRA_DC=DC1
       - CASSANDRA_RACK=RACK1
@@ -40,6 +41,7 @@ services:
 #    volumes:
 #      - ./dc1_rack1_node2_data:/var/lib/cassandra
 #    environment:
+#      - "constraint:node==rack1"
 #      - CASSANDRA_CLUSTER_NAME=guard_cluster
 #      - CASSANDRA_DC=DC1
 #      - CASSANDRA_RACK=RACK1
@@ -67,6 +69,7 @@ services:
     volumes:
       - ./dc1_rack2_node1_data:/var/lib/cassandra
     environment:
+      - "constraint:node==rack2"
       - CASSANDRA_CLUSTER_NAME=guard_cluster
       - CASSANDRA_DC=DC1
       - CASSANDRA_RACK=RACK2
@@ -92,6 +95,7 @@ services:
 #    volumes:
 #      - ./dc1_rack2_node2_data:/var/lib/cassandra
 #    environment:
+#      - "constraint:node==rack2"
 #      - CASSANDRA_CLUSTER_NAME=guard_cluster
 #      - CASSANDRA_DC=DC1
 #      - CASSANDRA_RACK=RACK2
@@ -119,6 +123,7 @@ services:
     volumes:
       - ./dc1_rack3_node1_data:/var/lib/cassandra
     environment:
+      - "constraint:node==rack3"
       - CASSANDRA_CLUSTER_NAME=guard_cluster
       - CASSANDRA_DC=DC1
       - CASSANDRA_RACK=RACK3
@@ -144,6 +149,7 @@ services:
 #    volumes:
 #      - ./dc1_rack3_node2_data:/var/lib/cassandra
 #    environment:
+#      - "constraint:node==rack3"
 #      - CASSANDRA_CLUSTER_NAME=guard_cluster
 #      - CASSANDRA_DC=DC1
 #      - CASSANDRA_RACK=RACK3
