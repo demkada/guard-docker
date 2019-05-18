@@ -5,8 +5,8 @@ services:
   #        (1 DC, 3 racks with 2 nodes/racks)              #
   #                                                        #
   ##########################################################
-  # DC1 Rack1 config with node1 as rack1 seed
-  dc1_rack1_node1:
+  # DC1 Rack1 config with cassandra_node1 as rack1 seed
+  dc1_rack1_cassandra_node1:
     image: cassandra:3.11.4
     command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 0; fi && /docker-entrypoint.sh cassandra -f'
     deploy:
@@ -16,15 +16,15 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - guard_network
+      - backend_network
     volumes:
-      - ./dc1_rack1_node1_data:/var/lib/cassandra
+      - dc1_rack1_cassandra_node1_data:/var/lib/cassandra
     environment:
       - CASSANDRA_CLUSTER_NAME=guard_cluster
       - CASSANDRA_DC=DC1
       - CASSANDRA_RACK=RACK1
       - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
-      - CASSANDRA_SEEDS=dc1_rack1_node1, dc1_rack2_node1, dc1_rack3_node1
+      - CASSANDRA_SEEDS=dc1_rack1_cassandra_node1, dc1_rack2_cassandra_node1, dc1_rack3_cassandra_node1
     expose:
       - 7000
       - 7001
@@ -36,9 +36,9 @@ services:
       nproc: 32768
       nofile: 100000
 
-# Uncomment this to add more nodes in rack1 (New nodes can be add to rack1 by duplicating dc1_rack1_node2 config. Just change nodeId and volumeID. eg dc1_rack1_nodeX )
+# Uncomment this to add more nodes in rack1 (New nodes can be add to rack1 by duplicating dc1_rack1_cassandra_node2 config. Just change nodeId and volumeID. eg dc1_rack1_nodeX )
 #
-#  dc1_rack1_node2:
+#  dc1_rack1_cassandra_node2:
 #    image: cassandra:3.11.4
 #    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 60; fi && /docker-entrypoint.sh cassandra -f'
 #   deploy:
@@ -48,17 +48,17 @@ services:
 #      restart_policy:
 #        condition: on-failure
 #   networks:
-#      - guard_network
+#      - backend_network
 #    volumes:
-#      - ./dc1_rack1_node2_data:/var/lib/cassandra
+#      - dc1_rack1_cassandra_node2_data:/var/lib/cassandra
 #    environment:
 #      - CASSANDRA_CLUSTER_NAME=guard_cluster
 #      - CASSANDRA_DC=DC1
 #      - CASSANDRA_RACK=RACK1
 #      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
-#      - CASSANDRA_SEEDS=dc1_rack1_node1, dc1_rack2_node1, dc1_rack3_node1
+#      - CASSANDRA_SEEDS=dc1_rack1_cassandra_node1, dc1_rack2_cassandra_node1, dc1_rack3_cassandra_node1
 #    depends_on:
-#      - dc1_rack1_node1
+#      - dc1_rack1_cassandra_node1
 #    expose:
 #      - 7000
 #      - 7001
@@ -70,8 +70,8 @@ services:
 #      nproc: 32768
 #      nofile: 100000
 
-  # DC1 Rack2 config with node1 as rack2 seed
-  dc1_rack2_node1:
+  # DC1 Rack2 config with cassandra_node1 as rack2 seed
+  dc1_rack2_cassandra_node1:
     image: cassandra:3.11.4
     command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 60; fi && /docker-entrypoint.sh cassandra -f'
     deploy:
@@ -81,15 +81,15 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - guard_network
+      - backend_network
     volumes:
-      - ./dc1_rack2_node1_data:/var/lib/cassandra
+      - dc1_rack2_cassandra_node1_data:/var/lib/cassandra
     environment:
       - CASSANDRA_CLUSTER_NAME=guard_cluster
       - CASSANDRA_DC=DC1
       - CASSANDRA_RACK=RACK2
       - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
-      - CASSANDRA_SEEDS=dc1_rack1_node1, dc1_rack2_node1, dc1_rack3_node1
+      - CASSANDRA_SEEDS=dc1_rack1_cassandra_node1, dc1_rack2_cassandra_node1, dc1_rack3_cassandra_node1
     expose:
       - 7000
       - 7001
@@ -101,8 +101,8 @@ services:
       nproc: 32768
       nofile: 100000
 
-# Uncomment this to add more nodes in rack2 (New nodes can be add to rack2 by duplicating dc1_rack2_node2 config. Just change nodeId and volumeID. eg dc1_rack2_nodeX)
-#  dc1_rack2_node2:
+# Uncomment this to add more nodes in rack2 (New nodes can be add to rack2 by duplicating dc1_rack2_cassandra_node2 config. Just change nodeId and volumeID. eg dc1_rack2_nodeX)
+#  dc1_rack2_cassandra_node2:
 #    image: cassandra:3.11.4
 #    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 120; fi && /docker-entrypoint.sh cassandra -f'
 #    deploy:
@@ -112,17 +112,17 @@ services:
 #      restart_policy:
 #        condition: on-failure
 #    networks:
-#      - guard_network
+#      - backend_network
 #    volumes:
-#      - ./dc1_rack2_node2_data:/var/lib/cassandra
+#      - dc1_rack2_cassandra_node2_data:/var/lib/cassandra
 #    environment:
 #      - CASSANDRA_CLUSTER_NAME=guard_cluster
 #      - CASSANDRA_DC=DC1
 #      - CASSANDRA_RACK=RACK2
 #      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
-#      - CASSANDRA_SEEDS=dc1_rack1_node1, dc1_rack2_node1, dc1_rack3_node1
+#      - CASSANDRA_SEEDS=dc1_rack1_cassandra_node1, dc1_rack2_cassandra_node1, dc1_rack3_cassandra_node1
 #    depends_on:
-#      - dc1_rack2_node1
+#      - dc1_rack2_cassandra_node1
 #    expose:
 #      - 7000
 #      - 7001
@@ -134,8 +134,8 @@ services:
 #      nproc: 32768
 #      nofile: 100000
 
-  # DC1 Rack3 config with node1 as rack3 seed
-  dc1_rack3_node1:
+  # DC1 Rack3 config with cassandra_node1 as rack3 seed
+  dc1_rack3_cassandra_node1:
     image: cassandra:3.11.4
     command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 60; fi && /docker-entrypoint.sh cassandra -f'
     deploy:
@@ -145,15 +145,15 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - guard_network
+      - backend_network
     volumes:
-      - ./dc1_rack3_node1_data:/var/lib/cassandra
+      - dc1_rack3_cassandra_node1_data:/var/lib/cassandra
     environment:
       - CASSANDRA_CLUSTER_NAME=guard_cluster
       - CASSANDRA_DC=DC1
       - CASSANDRA_RACK=RACK3
       - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
-      - CASSANDRA_SEEDS=dc1_rack1_node1, dc1_rack2_node1, dc1_rack3_node1
+      - CASSANDRA_SEEDS=dc1_rack1_cassandra_node1, dc1_rack2_cassandra_node1, dc1_rack3_cassandra_node1
     expose:
       - 7000
       - 7001
@@ -165,8 +165,8 @@ services:
       nproc: 32768
       nofile: 100000
 
-# Uncomment this to add more nodes in rack1 (New nodes can be add to rack3 by duplicating dc1_rack3_node2 config. Just change nodeId and volumeID. eg dc1_rack3_nodeX)
-#  dc1_rack3_node2:
+# Uncomment this to add more nodes in rack1 (New nodes can be add to rack3 by duplicating dc1_rack3_cassandra_node2 config. Just change nodeId and volumeID. eg dc1_rack3_nodeX)
+#  dc1_rack3_cassandra_node2:
 #    image: cassandra:3.11.4
 #    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 120; fi && /docker-entrypoint.sh cassandra -f'
 #    deploy:
@@ -176,17 +176,17 @@ services:
 #      restart_policy:
 #        condition: on-failure
 #    networks:
-#      - guard_network
+#      - backend_network
 #    volumes:
-#      - ./dc1_rack3_node2_data:/var/lib/cassandra
+#      - dc1_rack3_cassandra_node2_data:/var/lib/cassandra
 #    environment:
 #      - CASSANDRA_CLUSTER_NAME=guard_cluster
 #      - CASSANDRA_DC=DC1
 #      - CASSANDRA_RACK=RACK3
 #      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
-#      - CASSANDRA_SEEDS=dc1_rack1_node1, dc1_rack2_node1, dc1_rack3_node1
+#      - CASSANDRA_SEEDS=dc1_rack1_cassandra_node1, dc1_rack2_cassandra_node1, dc1_rack3_cassandra_node1
 #    depends_on:
-#      - dc1_rack3_node1
+#      - dc1_rack3_cassandra_node1
 #    expose:
 #      - 7000
 #      - 7001
@@ -208,11 +208,18 @@ services:
   portainer:
     image: portainer/portainer
     networks:
-      - guard_network
+      - backend_network
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./portainer-data:/data
+      - portainer-data:/data
     ports:
       - "9000:9000"
 networks:
-  guard_network:
+  backend_network:
+
+volumes:
+  dc1_rack1_cassandra_node1_data:
+  dc1_rack2_cassandra_node1_data:
+  dc1_rack3_cassandra_node1_data:
+  portainer-data:
+  # Add volumes for new nodes
