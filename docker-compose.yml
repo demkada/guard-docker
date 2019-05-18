@@ -9,12 +9,17 @@ services:
   dc1_rack1_node1:
     image: cassandra:3.11.4
     command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 0; fi && /docker-entrypoint.sh cassandra -f'
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == rack1
+      restart_policy:
+        condition: on-failure
     networks:
       - guard_network
     volumes:
       - ./dc1_rack1_node1_data:/var/lib/cassandra
     environment:
-      - "constraint:node==rack1"
       - CASSANDRA_CLUSTER_NAME=guard_cluster
       - CASSANDRA_DC=DC1
       - CASSANDRA_RACK=RACK1
@@ -36,12 +41,17 @@ services:
 #  dc1_rack1_node2:
 #    image: cassandra:3.11.4
 #    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 60; fi && /docker-entrypoint.sh cassandra -f'
-#    networks:
+#   deploy:
+#      placement:
+#        constraints:
+#          - node.labels.name == rack1
+#      restart_policy:
+#        condition: on-failure
+#   networks:
 #      - guard_network
 #    volumes:
 #      - ./dc1_rack1_node2_data:/var/lib/cassandra
 #    environment:
-#      - "constraint:node==rack1"
 #      - CASSANDRA_CLUSTER_NAME=guard_cluster
 #      - CASSANDRA_DC=DC1
 #      - CASSANDRA_RACK=RACK1
@@ -64,12 +74,17 @@ services:
   dc1_rack2_node1:
     image: cassandra:3.11.4
     command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 60; fi && /docker-entrypoint.sh cassandra -f'
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == rack2
+      restart_policy:
+        condition: on-failure
     networks:
       - guard_network
     volumes:
       - ./dc1_rack2_node1_data:/var/lib/cassandra
     environment:
-      - "constraint:node==rack2"
       - CASSANDRA_CLUSTER_NAME=guard_cluster
       - CASSANDRA_DC=DC1
       - CASSANDRA_RACK=RACK2
@@ -90,12 +105,17 @@ services:
 #  dc1_rack2_node2:
 #    image: cassandra:3.11.4
 #    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 120; fi && /docker-entrypoint.sh cassandra -f'
+#    deploy:
+#      placement:
+#        constraints:
+#          - node.labels.name == rack2
+#      restart_policy:
+#        condition: on-failure
 #    networks:
 #      - guard_network
 #    volumes:
 #      - ./dc1_rack2_node2_data:/var/lib/cassandra
 #    environment:
-#      - "constraint:node==rack2"
 #      - CASSANDRA_CLUSTER_NAME=guard_cluster
 #      - CASSANDRA_DC=DC1
 #      - CASSANDRA_RACK=RACK2
@@ -118,12 +138,17 @@ services:
   dc1_rack3_node1:
     image: cassandra:3.11.4
     command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 60; fi && /docker-entrypoint.sh cassandra -f'
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == rack3
+      restart_policy:
+        condition: on-failure
     networks:
       - guard_network
     volumes:
       - ./dc1_rack3_node1_data:/var/lib/cassandra
     environment:
-      - "constraint:node==rack3"
       - CASSANDRA_CLUSTER_NAME=guard_cluster
       - CASSANDRA_DC=DC1
       - CASSANDRA_RACK=RACK3
@@ -144,12 +169,17 @@ services:
 #  dc1_rack3_node2:
 #    image: cassandra:3.11.4
 #    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 120; fi && /docker-entrypoint.sh cassandra -f'
+#    deploy:
+#      placement:
+#        constraints:
+#          - node.labels.name == rack3
+#      restart_policy:
+#        condition: on-failure
 #    networks:
 #      - guard_network
 #    volumes:
 #      - ./dc1_rack3_node2_data:/var/lib/cassandra
 #    environment:
-#      - "constraint:node==rack3"
 #      - CASSANDRA_CLUSTER_NAME=guard_cluster
 #      - CASSANDRA_DC=DC1
 #      - CASSANDRA_RACK=RACK3
