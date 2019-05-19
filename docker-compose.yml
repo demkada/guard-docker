@@ -210,6 +210,9 @@ services:
       - "9000:9000"
 networks:
   backend_network:
+    driver: overlay
+    driver_opts:
+      encrypted: "true"
 
 volumes:
   dc1_rack1_cassandra_node1_data:
