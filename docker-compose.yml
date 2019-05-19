@@ -13,14 +13,14 @@ services:
       placement:
         constraints:
           - node.labels.name == rack1
-      restart_policy:
-        condition: on-failure
     networks:
       - backend_network
     volumes:
       - dc1_rack1_cassandra_node1_data:/var/lib/cassandra
     environment:
       - CASSANDRA_CLUSTER_NAME=guard_cluster
+      - CASSANDRA_LISTEN_ADDRESS=auto
+      - CASSANDRA_BROADCAST_ADDRESS=dc1_rack1_cassandra_node1
       - CASSANDRA_DC=DC1
       - CASSANDRA_RACK=RACK1
       - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
@@ -45,8 +45,6 @@ services:
 #      placement:
 #        constraints:
 #          - node.labels.name == rack1
-#      restart_policy:
-#        condition: on-failure
 #   networks:
 #      - backend_network
 #    volumes:
@@ -73,19 +71,19 @@ services:
   # DC1 Rack2 config with cassandra_node1 as rack2 seed
   dc1_rack2_cassandra_node1:
     image: cassandra:3.11.4
-    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 60; fi && /docker-entrypoint.sh cassandra -f'
+    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 0; fi && /docker-entrypoint.sh cassandra -f'
     deploy:
       placement:
         constraints:
           - node.labels.name == rack2
-      restart_policy:
-        condition: on-failure
     networks:
       - backend_network
     volumes:
       - dc1_rack2_cassandra_node1_data:/var/lib/cassandra
     environment:
       - CASSANDRA_CLUSTER_NAME=guard_cluster
+      - CASSANDRA_LISTEN_ADDRESS=auto
+      - CASSANDRA_BROADCAST_ADDRESS=dc1_rack2_cassandra_node1
       - CASSANDRA_DC=DC1
       - CASSANDRA_RACK=RACK2
       - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
@@ -104,13 +102,11 @@ services:
 # Uncomment this to add more nodes in rack2 (New nodes can be add to rack2 by duplicating dc1_rack2_cassandra_node2 config. Just change nodeId and volumeID. eg dc1_rack2_nodeX)
 #  dc1_rack2_cassandra_node2:
 #    image: cassandra:3.11.4
-#    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 120; fi && /docker-entrypoint.sh cassandra -f'
+#    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 60; fi && /docker-entrypoint.sh cassandra -f'
 #    deploy:
 #      placement:
 #        constraints:
 #          - node.labels.name == rack2
-#      restart_policy:
-#        condition: on-failure
 #    networks:
 #      - backend_network
 #    volumes:
@@ -137,19 +133,19 @@ services:
   # DC1 Rack3 config with cassandra_node1 as rack3 seed
   dc1_rack3_cassandra_node1:
     image: cassandra:3.11.4
-    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 60; fi && /docker-entrypoint.sh cassandra -f'
+    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 0; fi && /docker-entrypoint.sh cassandra -f'
     deploy:
       placement:
         constraints:
           - node.labels.name == rack3
-      restart_policy:
-        condition: on-failure
     networks:
       - backend_network
     volumes:
       - dc1_rack3_cassandra_node1_data:/var/lib/cassandra
     environment:
       - CASSANDRA_CLUSTER_NAME=guard_cluster
+      - CASSANDRA_LISTEN_ADDRESS=auto
+      - CASSANDRA_BROADCAST_ADDRESS=dc1_rack3_cassandra_node1
       - CASSANDRA_DC=DC1
       - CASSANDRA_RACK=RACK3
       - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
@@ -168,13 +164,11 @@ services:
 # Uncomment this to add more nodes in rack1 (New nodes can be add to rack3 by duplicating dc1_rack3_cassandra_node2 config. Just change nodeId and volumeID. eg dc1_rack3_nodeX)
 #  dc1_rack3_cassandra_node2:
 #    image: cassandra:3.11.4
-#    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 120; fi && /docker-entrypoint.sh cassandra -f'
+#    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 0; fi && /docker-entrypoint.sh cassandra -f'
 #    deploy:
 #      placement:
 #        constraints:
 #          - node.labels.name == rack3
-#      restart_policy:
-#        condition: on-failure
 #    networks:
 #      - backend_network
 #    volumes:
