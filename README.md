@@ -1,2 +1,2 @@
 # guard-docker
-Guard official docker images packaging and deploying scripts
+Guard official tools for packaging and deployment
