@@ -34,6 +34,12 @@ services:
       memlock: -1
       nproc: 32768
       nofile: 100000
+    healthcheck:
+      test: ["CMD", "cat", "< /dev/null >", "/dev/tcp/localhost/9042"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
       
   dc1_rack2_cassandra_node1:
     image: cassandra:3.11.4
@@ -64,6 +70,12 @@ services:
       memlock: -1
       nproc: 32768
       nofile: 100000
+    healthcheck:
+      test: ["CMD", "cat", "< /dev/null >", "/dev/tcp/localhost/9042"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
       
   dc1_rack3_cassandra_node1:
     image: cassandra:3.11.4
@@ -94,6 +106,12 @@ services:
       memlock: -1
       nproc: 32768
       nofile: 100000
+    healthcheck:
+      test: ["CMD", "cat", "< /dev/null >", "/dev/tcp/localhost/9042"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
   ##########################################################
   #                Portainer deployment                    #
