@@ -17,7 +17,7 @@ services:
     volumes:
       - dc1_rack1_cassandra_node1_data:/var/lib/cassandra
     environment:
-      - CASSANDRA_CLUSTER_NAME=guard_cluster
+      - CASSANDRA_CLUSTER_NAME=guard-cassandra
       - CASSANDRA_LISTEN_ADDRESS=auto
       - CASSANDRA_BROADCAST_ADDRESS=dc1_rack1_cassandra_node1
       - CASSANDRA_DC=DC1
@@ -53,7 +53,7 @@ services:
     volumes:
       - dc1_rack2_cassandra_node1_data:/var/lib/cassandra
     environment:
-      - CASSANDRA_CLUSTER_NAME=guard_cluster
+      - CASSANDRA_CLUSTER_NAME=guard-cassandra
       - CASSANDRA_LISTEN_ADDRESS=auto
       - CASSANDRA_BROADCAST_ADDRESS=dc1_rack2_cassandra_node1
       - CASSANDRA_DC=DC1
@@ -89,7 +89,7 @@ services:
     volumes:
       - dc1_rack3_cassandra_node1_data:/var/lib/cassandra
     environment:
-      - CASSANDRA_CLUSTER_NAME=guard_cluster
+      - CASSANDRA_CLUSTER_NAME=guard-cassandra
       - CASSANDRA_LISTEN_ADDRESS=auto
       - CASSANDRA_BROADCAST_ADDRESS=dc1_rack3_cassandra_node1
       - CASSANDRA_DC=DC1
